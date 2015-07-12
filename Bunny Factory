@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Numerics;
+
+namespace BunnyFactory
+{
+    class Program
+    {
+        static void Main()
+        {
+
+            List<int> cages = new List<int>();
+            string line = Console.ReadLine();
+            while (line != "END")
+            {
+                cages.Add(int.Parse(line));
+                line = Console.ReadLine();
+            }
+            for (int i = 1; i <= cages.Count; i++)
+            {
+                string Result = string.Empty;
+                if (cages.Count < i)
+                {
+                    break;
+                }
+                int TakeAsSum = 0;
+                for (int k = 0; k < i; k++)
+                {
+                    TakeAsSum += cages[k];
+                }
+                if (TakeAsSum > cages.Count - i)
+                {
+                    break;
+                }
+                int sum = 0;
+                BigInteger product = 1;
+                if (i != 1)
+                {
+                    TakeAsSum += 1;
+                }
+                for (int j = i; j <= TakeAsSum; j++)
+                {
+                    sum += cages[j];
+                    product *= cages[j];
+                }
+                Result = sum.ToString() + product.ToString();
+                for (int l = TakeAsSum + 1; l < cages.Count; l++)
+                {
+                    Result += cages[l];
+                }
+                cages.Clear();
+                for (int j = 0; j < Result.Length; j++)
+                {
+                    if (Result[j] != '0' && Result[j] != '1')
+                    {
+                        cages.Add(Result[j] - '0');
+                    }
+                }
+
+            }
+            Console.WriteLine(string.Join(" ", cages));
+        }
+
+    }
+}
